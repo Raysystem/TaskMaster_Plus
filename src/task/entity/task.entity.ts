@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { UserEntity } from "src/user/entity/user.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({ name: 'task' })
 export class TaskEntity {
@@ -10,7 +11,7 @@ export class TaskEntity {
     titleTask: string;
     @Column({ name: 'description', nullable: false })
     description: string;
-    @Column({ name: 'concluded' })
+    @Column({ name: 'concluded' , nullable: false})
     concluded: boolean;
     @Column({ name: 'date_conclusion' })
     date_conclusion: Date;
@@ -20,4 +21,7 @@ export class TaskEntity {
     createdAt: Date;
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
+    @ManyToOne(() => UserEntity, (user) => user.tasks)
+    @JoinColumn({ name: 'user_id', referencedColumnName: 'id'})
+    user: UserEntity
 }
