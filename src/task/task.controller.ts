@@ -4,16 +4,17 @@ import { Controller, Post, ValidationPipe, UsePipes, Param, Body } from '@nestjs
 import { TaskEntity } from './entity/task.entity';
 import { UserType } from 'src/user/enum/user-type.enum';
 import { Roles } from 'src/decorators/roles.decorator';
+import { UserId } from 'src/decorators/user-id.decorator';
 
 @Controller('task')
 export class TaskController {
     constructor(private readonly TaskService: TaskService) { }
-    @Roles(UserType.Admin)
-    @Post('/:userId')
+    @Roles(UserType.User)
+    @Post()
     @UsePipes(ValidationPipe)
     async create(
         @Body() createTaskDto: CreateTaskDto,
-        @Param('userID') userId:number,
+        @UserId() userId:number,
     ): Promise<TaskEntity> {
         return this.TaskService.createTask(createTaskDto, userId)
     }
