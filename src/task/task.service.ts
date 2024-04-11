@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TaskEntity } from './entity/task.entity';
 import { Repository } from 'typeorm';
@@ -15,11 +15,20 @@ export class TaskService {
     async createTask(
         createTaskDto: CreateTaskDto,
         userId: number
-    ): Promise<TaskEntity>{
+    ): Promise<TaskEntity> {
         await this.userService.getUserById(userId)
         return this.taskRepository.save({
             ...createTaskDto,
             user_Id: userId
         })
+    }
+    async getTasksByUserId(userId: number): Promise<TaskEntity[]> {
+        const tasks = await this.taskRepository.find({
+            where: {
+                userId
+            }
+        })
+        if(!tasks || tasks.length === 0) throw new NotFoundException('Tarefas vazia para este usuário!')
+        return tasks
     }
 }
