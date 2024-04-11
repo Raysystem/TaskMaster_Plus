@@ -7,8 +7,10 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>) { }
+    constructor(
+        @InjectRepository(UserEntity)
+        private readonly userRepository: Repository<UserEntity>
+    ) { }
     async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
         const saltOrRounds = 10
         const hashCrypt = await hash(createUserDto.password, saltOrRounds);
@@ -35,7 +37,16 @@ export class UserService {
                 id: userId
             }
         })
-        if (!user) throw new NotFoundException('ID do usuário não encontrado!')
+        if (!user) throw new NotFoundException(`ID: ${userId} não encontrado!`)
+        return user
+    }
+    async getUserByEmail(email: string): Promise<UserEntity> {
+        const user = await this.userRepository.findOne({
+            where: {
+                email: email
+            }
+        })
+        if (!user) throw new NotFoundException(`Email: ${email} não encontrado!`)
         return user
     }
 }
