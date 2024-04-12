@@ -1,9 +1,11 @@
-import { BadGatewayException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadGatewayException, BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { UserEntity } from './entity/user.entity';
 import { hash } from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UpdatePasswordDto } from './dtos/updatepassword.dto';
+import { createPassHash, validatePassword } from 'src/utis/pass';
 
 @Injectable()
 export class UserService {
@@ -50,5 +52,15 @@ export class UserService {
         })
         if (!user) throw new NotFoundException(`Email: ${email} não encontrado!`)
         return user
+    }
+    async updatePasswordUser(upPassUser:UpdatePasswordDto,userId:number): Promise<UserEntity> {
+        const user = await this.getUserById(userId)
+        const passHash = await createPassHash(upPassUser.newPassword)
+        const isMath = await validatePassword(upPassUser.lastPassword, user.password || '')
+        if(!isMath) throw new BadRequestException('Ultima senha invalida!')
+        return this.userRepository.save({
+            ...user,
+            password: passHash
+        })
     }
 }
