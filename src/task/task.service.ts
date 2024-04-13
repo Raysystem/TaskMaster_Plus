@@ -4,7 +4,6 @@ import { TaskEntity } from './entity/task.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import { UserService } from 'src/user/user.service';
 import { CreateTaskDto } from './dtos/createTask.dto';
-import { ReturnTaskDto } from './dtos/returnTask.dto';
 import { UpdateTaskDto } from './dtos/updateTask.dto';
 
 @Injectable()

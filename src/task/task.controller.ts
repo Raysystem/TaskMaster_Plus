@@ -28,6 +28,10 @@ export class TaskController {
     ): Promise<ReturnTaskDto[]> {
         return (await (this.TaskService.getTasksByUserId(userId))).map((task) => new ReturnTaskDto(task))
     }
+    @Get('/:taskId')
+    async getTask(@Param('taskId') taskId:number): Promise<ReturnTaskDto> {
+        return this.TaskService.findTaskId(taskId)
+    }
     // @Roles(UserType.User)
     @UsePipes(ValidationPipe)
     @Put('/:taskId')
