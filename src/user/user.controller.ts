@@ -17,17 +17,17 @@ export class UserController {
     async createUser(@Body() createUser: CreateUserDto): Promise<UserEntity> {
         return this.userService.createUser(createUser)
     }
-    @Roles(UserType.Admin)
+    // @Roles(UserType.Admin)
     @Get()
     async getAllUser(): Promise<UserEntity[]> {
         return this.userService.getAllUsers()
     }
-    @Roles(UserType.User)
+    // @Roles(UserType.User)
     @Get('/:userId')
     async getUserById(@Param('userId') userId: number) {
         return this.userService.getUserByIdUsingRelations(userId)
     }
-    @Roles(UserType.Admin, UserType.User)
+    // @Roles(UserType.Admin, UserType.User)
     @Patch('/:userId')
     @UsePipes(ValidationPipe)
     async updatePasswordUser(@UserId() userId: number, @Body() upPassDto: UpdatePasswordDto): Promise<UserEntity>{
