@@ -1,15 +1,15 @@
 import { IsBoolean, IsDate, IsDateString, IsInt, IsString } from "class-validator";
 
 export class CreateTaskDto {
-    @IsInt()
+    // @IsInt()
     userId: number;
-    @IsString()
+    // @IsString()
     titleTask: string;
-    @IsString()
+    // @IsString()
     description: string;
-    @IsBoolean()
+    // @IsBoolean()
     concluded: boolean;
     date_conclusion: Date;
-    @IsInt()
+    // @IsInt()
     priority: number;
 }
