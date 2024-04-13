@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdatePasswordDto } from './dtos/updatepassword.dto';
 import { createPassHash, validatePassword } from 'src/utis/pass';
+import { ReturnUserDto } from './dtos/returnUser.dto';
 
 @Injectable()
 export class UserService {
@@ -18,11 +19,15 @@ export class UserService {
         if(user) throw new BadGatewayException('Email já cadastrado!')
         const saltOrRounds = 10
         const hashCrypt = await hash(createUserDto.password, saltOrRounds);
-        return this.userRepository.save({
+        const resp = this.userRepository.save({
             ...createUserDto,
             typeUser: 1,
             password: hashCrypt
         })
+        delete (await resp).password
+        delete (await resp).createdAt
+        delete (await resp).updatedAt
+        return resp
     }
     async getUserByIdUsingRelations(userId: number): Promise<UserEntity>{
         return this.userRepository.findOne({

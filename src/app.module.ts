@@ -15,11 +15,12 @@ import { RolesGuard } from './guards/roles.guard';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      database: process.env.DB_DATABASE,
-      host: process.env.DB_HOST,
-      password: process.env.DB_PASSWORD,
-      port: Number(process.env.DB_PASSWORD),
-      username: process.env.DB_USERNAME,
+      database: process.env.DATABASE_NAME,
+      host: process.env.DATABASE_HOST,
+      password: process.env.DATABASE_PASSWORD,
+      // port: Number(process.env.DATABASE_PASSWORD),
+      username: process.env.DATABASE_USER,
+      ssl: true,
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
       migrations: [`${__dirname}/migration/{.ts,*.js}`],
       migrationsRun: true

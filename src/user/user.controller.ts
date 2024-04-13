@@ -22,7 +22,7 @@ export class UserController {
     async getAllUser(): Promise<UserEntity[]> {
         return this.userService.getAllUsers()
     }
-    @Roles(UserType.Admin)
+    @Roles(UserType.User)
     @Get('/:userId')
     async getUserById(@Param('userId') userId: number) {
         return this.userService.getUserByIdUsingRelations(userId)
