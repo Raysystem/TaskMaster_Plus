@@ -12,7 +12,7 @@ import { UpdateTaskDto } from './dtos/updateTask.dto';
 @Controller('task')
 export class TaskController {
     constructor(private readonly TaskService: TaskService) { }
-    // @Roles(UserType.User)
+    @Roles(UserType.User)
     @Post()
     @UsePipes(ValidationPipe)
     async create(
@@ -21,7 +21,7 @@ export class TaskController {
     ): Promise<TaskEntity> {
         return this.TaskService.createTask(createTaskDto, userId)
     }
-    // @Roles(UserType.User)
+    @Roles(UserType.User)
     @Get()
     async getTaskByUserId(
         @UserId() userId: number
@@ -32,7 +32,7 @@ export class TaskController {
     async getTask(@Param('taskId') taskId:number): Promise<ReturnTaskDto> {
         return this.TaskService.findTaskId(taskId)
     }
-    // @Roles(UserType.User)
+    @Roles(UserType.User)
     @UsePipes(ValidationPipe)
     @Put('/:taskId')
     async updateTask(
@@ -41,7 +41,7 @@ export class TaskController {
     ): Promise<TaskEntity> {
         return this.TaskService.updateTask(upTask, taskId)
     }
-    // @Roles(UserType.User)
+    @Roles(UserType.User)
     @Delete('/:taskId')
     async deleteTask(
         @Param('taskId') taskId: number
