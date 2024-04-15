@@ -6,6 +6,7 @@ export class ReturnTaskDto {
     titleTask: string;
     description: string;
     concluded: boolean;
+    status: number;
     date_conclusion: Date;
     priority: number;
 
@@ -15,6 +16,7 @@ export class ReturnTaskDto {
         this.titleTask = taskEntity.titleTask;
         this.description= taskEntity.description;
         this.concluded = taskEntity.concluded;
+        this.status = taskEntity.status
         this.date_conclusion = taskEntity.date_conclusion;
         this.priority = taskEntity.priority;
     }

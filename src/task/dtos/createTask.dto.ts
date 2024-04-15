@@ -9,6 +9,7 @@ export class CreateTaskDto {
     description: string;
     // @IsBoolean()
     concluded: boolean;
+    status: number;
     date_conclusion: Date;
     // @IsInt()
     priority: number;

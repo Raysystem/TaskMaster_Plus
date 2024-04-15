@@ -15,6 +15,8 @@ export class TaskEntity {
     concluded: boolean;
     @Column({ name: 'date_conclusion' })
     date_conclusion: Date;
+    @Column({ name: 'status' })
+    status: number;
     @Column({ name: 'priority', nullable: false })
     priority: number;
     @CreateDateColumn({ name: 'created_at' })

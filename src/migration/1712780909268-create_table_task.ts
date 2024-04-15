@@ -10,6 +10,7 @@ export class CreateTableTask1712780909268 implements MigrationInterface {
             title_task character varying NOT NULL,
             description character varying NOT NULL,
             concluded BOOLEAN NOT NULL,
+            status integer NOT NULL,
             date_conclusion timestamp without time zone DEFAULT now(),
             priority NUMERIC NOT NULL,
             created_at timestamp without time zone DEFAULT now() NOT NULL,

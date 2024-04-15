@@ -9,6 +9,8 @@ export class UpdateTaskDto {
     description: string;
     @IsBoolean()
     concluded: boolean;
+    @IsInt()
+    status: number;
     date_conclusion: Date;
     @IsInt()
     priority: number;
