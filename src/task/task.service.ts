@@ -29,8 +29,7 @@ export class TaskService {
                 userId
             }
         })
-        if(!tasks || tasks.length === 0) throw new NotFoundException('Tarefas vazia para este usuário!')
-        return tasks
+        return !tasks || tasks.length === 0 ? [] : tasks
     }
     async findTaskId(taskId:number): Promise<TaskEntity>{
         const task = await this.taskRepository.findOne({
